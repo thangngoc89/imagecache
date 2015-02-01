@@ -295,7 +295,7 @@ class ImageCache
         $key = $this->checksum();
 
         // try to get image from cache
-        $cachedImageData = $this->cache->get($key);
+        $cachedImageData = $this->cache->driver('file')->get($key);
 
         // if imagedata exists in cache
         if ($cachedImageData) {
@@ -319,7 +319,7 @@ class ImageCache
             $image = $image->encoded ? $image->encoded : $image->encode();
 
             // save to cache...
-            $this->cache->put($key, (string) $image, $lifetime);
+            $this->cache->driver('file')->put($key, (string) $image, $lifetime);
 
             // return processed image
             return $returnObj ? $image : (string) $image;
